@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   Alert,
   BackHandler,
@@ -27,9 +27,18 @@ function App(): React.JSX.Element {
     );
     return true;
   };
+  const [date, setDate] = useState(new Date());
   useEffect(() => {
     BackHandler.addEventListener('hardwareBackPress', BKpress);
-  });
+    setInterval(() => {
+      setDate(new Date());
+      // Alert.alert(date.getTime.toString());
+      // Alert.alert('ya');
+    }, 1000);
+    return () => {
+      BackHandler.removeEventListener('hardwareBackPress', BKpress);
+    };
+  }, []);
   return (
     <SafeAreaView style={styles.main}>
       <View style={styles.viw}>
@@ -42,11 +51,12 @@ function App(): React.JSX.Element {
       </View>
 
       <View style={styles.btn}>
+        <Text style={styles.date}>{date.toLocaleTimeString()}</Text>
         <Button
           onPress={() => {
             Alert.alert('hi');
             setTimeout(() => {
-              Alert.prompt('bye');
+              Alert.alert('bye');
             }, 1000);
             setTimeout(() => {
               BackHandler.exitApp();
@@ -56,32 +66,44 @@ function App(): React.JSX.Element {
         />
         <Button onPress={BKpress} title="exit" />
       </View>
-      <AppPro />
+      <View style={styles.pro}>
+        <AppPro />
+      </View>
     </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
-  text: {
-    fontSize: 120,
-  },
   main: {
     backgroundColor: 'black',
-    height: 870,
+    height: 765,
+    display: 'flex',
+    justifyContent: 'center',
+  },
+  text: {
+    fontSize: 105,
+  },
+  date: {
+    fontSize: 40,
+  },
+  viw: {
+    flex: 3,
+    // height: 350,
+    backgroundColor: 'purple',
+    overflow: 'hidden',
+    paddingVertical: 10,
   },
   btn: {
-    height: 200,
-    marginTop: 20,
+    // height: 200,
+    flex: 2.1,
+    // marginTop: 20,
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: 'pink',
     gap: 10,
   },
-  viw: {
-    height: 350,
-    backgroundColor: 'purple',
-    overflow: 'hidden',
-    paddingVertical: 10,
+  pro: {
+    flex: 2.1,
   },
 });
 

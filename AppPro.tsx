@@ -1,18 +1,19 @@
 import React from 'react';
-import {Text, View} from 'react-native';
+import {ScrollView, Text} from 'react-native';
 
 const AppPro = () => {
   return (
-    <View>
+    <ScrollView>
       <Text
         style={{
           fontSize: 80,
           textAlign: 'center',
           marginTop: 50,
+          lineHeight: 135,
         }}>
         hi, there people
       </Text>
-    </View>
+    </ScrollView>
   );
 };
 
